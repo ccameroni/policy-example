@@ -1,0 +1,89 @@
+<policy-set combine="first-matching-target" description="defaultPolicy">
+    <policy id="owner-policy" combine="first-applicable" description="zone-owner">
+        <target>
+            <subject>
+                <subject-match attr="user-id" match="INSERT YOUR USER ID HERE"/>
+            </subject>
+        </target>
+        <rule effect="deny">
+            <condition combine="or">
+                <resource-match attr="api-feature" match="http://webinos.org/api/w3c/geolocation"/>
+                <resource-match attr="api-feature" match="http://webinos.org/api/messaging"/>
+                <resource-match attr="api-feature" match="http://webinos.org/api/payment"/>
+                <resource-match attr="api-feature" match="http://webinos.org/feature/incognito"/>
+            </condition>
+        </rule>
+        <rule id="r1" effect="permit"></rule>
+    </policy>
+    <policy combine="first-applicable" description="zone-owner">
+        <target>
+            <subject>
+                <subject-match attr="user-id" match="user1"/>
+                <subject-match attr="environment" match="home"/>
+                <subject-match attr="id" match="app1"/>
+            </subject>
+        </target>
+        <rule effect="deny">
+            <condition combine="or">
+                <resource-match attr="api-feature" match="http://webinos.org/api/w3c/geolocation"/>
+                <resource-match attr="api-feature" match="http://webinos.org/feature/incognito"/>
+            </condition>
+        </rule>
+        <rule effect="permit">
+            <condition combine="or">
+                <resource-match attr="api-feature" match="http://webinos.org/api/messaging"/>
+                <resource-match attr="api-feature" match="http://webinos.org/api/payment"/>
+            </condition>
+        </rule>
+        <rule id="r1" effect="permit"></rule>
+    </policy>
+    <policy id="friend-1" combine="first-applicable" description="first-friend">
+        <target>
+            <subject>
+                <subject-match attr="user-id" match="friend1"/>
+                <subject-match attr="environment" match="travel"/>
+                <subject-match attr="id" match="app2"/>
+            </subject>
+        </target>
+        <rule effect="permit">
+            <condition combine="or">
+                <resource-match attr="api-feature" match="http://webinos.org/api/discovery"/>
+                <resource-match attr="api-feature" match="http://webinos.org/api/w3c/geolocation"/>
+                <resource-match attr="api-feature" match="http://webinos.org/api/messaging"/>
+                <resource-match attr="api-feature" match="http://webinos.org/api/nfc.read"/>
+            </condition>
+        </rule>
+        <rule effect="deny"></rule>
+    </policy>
+    <policy id="friend-2" combine="first-applicable" description="second-friend">
+        <target>
+            <subject>
+                <subject-match attr="user-id" match="friend2"/>
+                <subject-match attr="environment" match="other"/>
+                <subject-match attr="id" match="app3"/>
+            </subject>
+        </target>
+        <rule effect="permit">
+            <condition combine="or">
+                <resource-match attr="api-feature" match="http://webinos.org/api/w3c/geolocation"/>
+            </condition>
+        </rule>
+        <rule effect="deny"></rule>
+    </policy>
+    <policy id="default" combine="first-applicable" description="default-policy">
+        <rule effect="deny"></rule>
+    </policy>
+    <DataHandlingPreferences PolicyId="#DHP_allow_all">
+        <AuthorizationsSet>
+            <AuthzUseForPurpose>
+                <Purpose/>
+            </AuthzUseForPurpose>
+        </AuthorizationsSet>
+    </DataHandlingPreferences>
+    <ProvisionalActions>
+        <ProvisionalAction>
+            <AttributeValue>#DHP_allow_all</AttributeValue>
+            <AttributeValue>*</AttributeValue>
+        </ProvisionalAction>
+    </ProvisionalActions>
+</policy-set>
