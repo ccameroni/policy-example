@@ -2,30 +2,30 @@
     <policy id="discovery" combine="first-applicable" description="zone-owner">
         <target>
             <subject>
-                <subject-match attr="user-id" match="INSERT YOUR USER ID HERE"/>
+                <subject-match attr="user-id" match="INSERT YOUR USERNAME HERE"/>
             </subject>
         </target>
         <rule id="r1" effect="deny">
             <condition combine="and">
-                <resource-match attr="api-feature" match="http://webinos.org/discovery"/>
+                <resource-match attr="api-feature" match="http://webinos.org/api/discovery"/>
                 <resource-match attr="param:feature" match="http://webinos.org/api/w3c/geolocation"/>
             </condition>
         </rule>
         <rule id="r2" effect="deny">
             <condition combine="and">
-                <resource-match attr="api-feature" match="http://webinos.org/discovery"/>
+                <resource-match attr="api-feature" match="http://webinos.org/api/discovery"/>
                 <resource-match attr="param:feature" match="http://webinos.org/api/messaging"/>
             </condition>
         </rule>
         <rule id="r3" effect="deny">
             <condition combine="and">
-                <resource-match attr="api-feature" match="http://webinos.org/discovery"/>
+                <resource-match match="http://webinos.org/api/discovery" attr="api-feature" />
                 <resource-match attr="param:feature" match="http://webinos.org/api/payment"/>
             </condition>
         </rule>
         <rule id="r4" effect="deny">
             <condition combine="and">
-                <resource-match attr="api-feature" match="http://webinos.org/discovery"/>
+                <resource-match attr="api-feature" match="http://webinos.org/api/discovery"/>
                 <resource-match attr="param:feature" match="http://webinos.org/feature/incognito"/>
             </condition>
         </rule>
@@ -34,8 +34,7 @@
     <policy id="owner-2" combine="first-applicable" description="zone-owner">
         <target>
             <subject>
-                <subject-match attr="user-id" match="user1"/>
-                <subject-match attr="environment" match="home"/>
+                <subject-match attr="user-id" match="friend1"/>
                 <subject-match attr="id" match="app1"/>
             </subject>
         </target>
@@ -56,8 +55,7 @@
     <policy id="friend-1" combine="first-applicable" description="first-friend">
         <target>
             <subject>
-                <subject-match attr="user-id" match="friend1"/>
-                <subject-match attr="environment" match="travel"/>
+                <subject-match attr="user-id" match="friend2"/>
                 <subject-match attr="id" match="app2"/>
             </subject>
         </target>
@@ -66,7 +64,7 @@
                 <resource-match attr="api-feature" match="http://webinos.org/api/discovery"/>
                 <resource-match attr="api-feature" match="http://webinos.org/api/w3c/geolocation"/>
                 <resource-match attr="api-feature" match="http://webinos.org/api/messaging"/>
-                <resource-match attr="api-feature" match="http://webinos.org/api/nfc.read"/>
+                <resource-match attr="api-feature" match="http://webinos.org/api/nfc"/>
             </condition>
         </rule>
         <rule id="r10" effect="deny"></rule>
@@ -74,8 +72,7 @@
     <policy id="friend-2" combine="first-applicable" description="second-friend">
         <target>
             <subject>
-                <subject-match attr="user-id" match="friend2"/>
-                <subject-match attr="environment" match="other"/>
+                <subject-match attr="user-id" match="friend3"/>
                 <subject-match attr="id" match="app3"/>
             </subject>
         </target>
