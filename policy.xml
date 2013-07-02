@@ -1,5 +1,5 @@
 <policy-set id="policySetId1" combine="first-matching-target" description="defaultPolicy">
-    <policy id="discovery" combine="first-applicable" description="zone-owner">
+    <policy id="local-discoverability" combine="first-applicable" description="zone-owner">
         <target>
             <subject>
                 <subject-match attr="user-id" match="INSERT YOUR USERNAME HERE"/>
@@ -8,28 +8,16 @@
         <rule id="r1" effect="deny">
             <condition combine="and">
                 <resource-match attr="api-feature" match="http://webinos.org/api/discovery"/>
-                <resource-match attr="param:feature" match="http://webinos.org/api/w3c/geolocation"/>
-            </condition>
-        </rule>
-        <rule id="r2" effect="deny">
-            <condition combine="and">
-                <resource-match attr="api-feature" match="http://webinos.org/api/discovery"/>
                 <resource-match attr="param:feature" match="http://webinos.org/api/messaging"/>
             </condition>
         </rule>
-        <rule id="r3" effect="deny">
+        <rule id="r2" effect="deny">
             <condition combine="and">
                 <resource-match match="http://webinos.org/api/discovery" attr="api-feature" />
                 <resource-match attr="param:feature" match="http://webinos.org/api/payment"/>
             </condition>
         </rule>
-        <rule id="r4" effect="deny">
-            <condition combine="and">
-                <resource-match attr="api-feature" match="http://webinos.org/api/discovery"/>
-                <resource-match attr="param:feature" match="http://webinos.org/feature/incognito"/>
-            </condition>
-        </rule>
-        <rule id="r5" effect="permit"></rule>
+        <rule id="r3" effect="permit"></rule>
     </policy>
     <policy id="owner-2" combine="first-applicable" description="zone-owner">
         <target>
@@ -38,19 +26,18 @@
                 <subject-match attr="id" match="app1"/>
             </subject>
         </target>
-        <rule id="r6" effect="deny">
+        <rule id="r4" effect="deny">
             <condition combine="or">
                 <resource-match attr="api-feature" match="http://webinos.org/api/w3c/geolocation"/>
-                <resource-match attr="api-feature" match="http://webinos.org/feature/incognito"/>
             </condition>
         </rule>
-        <rule id="r7" effect="permit">
+        <rule id="r5" effect="permit">
             <condition combine="or">
                 <resource-match attr="api-feature" match="http://webinos.org/api/messaging"/>
                 <resource-match attr="api-feature" match="http://webinos.org/api/payment"/>
             </condition>
         </rule>
-        <rule id="r8" effect="permit"></rule>
+        <rule id="r6" effect="permit"></rule>
     </policy>
     <policy id="friend-1" combine="first-applicable" description="first-friend">
         <target>
@@ -59,7 +46,7 @@
                 <subject-match attr="id" match="app2"/>
             </subject>
         </target>
-        <rule id="r9" effect="permit">
+        <rule id="r7" effect="permit">
             <condition combine="or">
                 <resource-match attr="api-feature" match="http://webinos.org/api/discovery"/>
                 <resource-match attr="api-feature" match="http://webinos.org/api/w3c/geolocation"/>
@@ -67,7 +54,7 @@
                 <resource-match attr="api-feature" match="http://webinos.org/api/nfc"/>
             </condition>
         </rule>
-        <rule id="r10" effect="deny"></rule>
+        <rule id="r8" effect="deny"></rule>
     </policy>
     <policy id="friend-2" combine="first-applicable" description="second-friend">
         <target>
@@ -76,15 +63,21 @@
                 <subject-match attr="id" match="app3"/>
             </subject>
         </target>
-        <rule id="r11" effect="permit">
+        <rule id="r9" effect="permit">
             <condition combine="or">
                 <resource-match attr="api-feature" match="http://webinos.org/api/w3c/geolocation"/>
             </condition>
         </rule>
-        <rule id="r12" effect="deny"></rule>
+        <rule id="r10" effect="deny"></rule>
     </policy>
     <policy id="default" combine="first-applicable" description="default-policy">
-        <rule id="r13" effect="deny"></rule>
+        <rule id="r11" effect="permit">
+            <condition combine="and">
+                <resource-match attr="api-feature" match="http://webinos.org/api/discovery"/>
+                <resource-match attr="param:feature" match="http://webinos.org/api/w3c/geolocation"/>
+            </condition>
+        </rule>
+        <rule id="r12" effect="deny"></rule>
     </policy>
     <DataHandlingPreferences PolicyId="#DHP_allow_all">
         <AuthorizationsSet>
