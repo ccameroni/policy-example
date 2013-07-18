@@ -27,14 +27,24 @@
             </subject>
         </target>
         <rule id="r4" effect="deny">
-            <condition combine="or">
-                <resource-match attr="api-feature" match="http://webinos.org/api/w3c/geolocation"/>
+            <condition combine="and">
+                <condition combine="or">
+                    <resource-match attr="api-feature" match="http://webinos.org/api/w3c/geolocation"/>
+                </condition>
+                <condition combine="or">
+                    <environment-match attr="profile" match="Work"/>
+                </condition>
             </condition>
         </rule>
         <rule id="r5" effect="permit">
-            <condition combine="or">
-                <resource-match attr="api-feature" match="http://webinos.org/api/messaging"/>
-                <resource-match attr="api-feature" match="http://webinos.org/api/payment"/>
+            <condition combine="and">
+                <condition combine="or">
+                    <resource-match attr="api-feature" match="http://webinos.org/api/messaging"/>
+                    <resource-match attr="api-feature" match="http://webinos.org/api/payment"/>
+                </condition>
+                <condition combine="or">
+                    <environment-match attr="profile" match="Home"/>
+                </condition>
             </condition>
         </rule>
         <rule id="r6" effect="permit"></rule>
