@@ -1,0 +1,71 @@
+<policy-set id="policySetId1" combine="first-matching-target" description="defaultPolicy">
+    <policy id="owner" combine="first-applicable" description="zone-owner">
+        <target>
+            <subject>
+                <subject-match attr="user-id" match="INSERT YOUR USERNAME HERE"/>
+            </subject>
+        </target>
+        <rule id="r1" effect="deny">
+            <condition combine="or">
+                <resource-match attr="service-id" match="service1"/>
+            </condition>
+        </rule>
+        <rule id="r2" effect="permit">
+            <condition combine="or">
+                <resource-match attr="service-id" match="service2"/>
+                <resource-match attr="service-id" match="service3"/>
+                <resource-match attr="service-id" match="service4"/>
+            </condition>
+        </rule>
+        <rule id="r3" effect="permit"></rule>
+    </policy>
+    <policy id="friend-1" combine="first-applicable" description="first-friend">
+        <target>
+            <subject>
+                <subject-match attr="user-id" match="friend1"/>
+            </subject>
+        </target>
+        <rule id="r4" effect="permit">
+            <condition combine="or">
+                <resource-match attr="service-id" match="service1"/>
+                <resource-match attr="service-id" match="service3"/>
+            </condition>
+        </rule>
+        <rule id="r5" effect="deny"></rule>
+    </policy>
+    <policy id="friend-2" combine="first-applicable" description="second-friend">
+        <target>
+            <subject>
+                <subject-match attr="user-id" match="friend2"/>
+            </subject>
+        </target>
+        <rule id="r6" effect="permit">
+            <condition combine="or">
+                <resource-match attr="service-id" match="service2"/>
+                <resource-match attr="service-id" match="service3"/>
+            </condition>
+        </rule>
+        <rule id="r7" effect="deny"></rule>
+    </policy>
+    <policy id="default" combine="first-applicable" description="default-policy">
+        <rule id="r8" effect="permit">
+            <condition combine="and">
+                <resource-match attr="service-id" match="service3"/>
+            </condition>
+        </rule>
+        <rule id="r9" effect="deny"></rule>
+    </policy>
+    <DataHandlingPreferences PolicyId="#DHP_allow_all">
+        <AuthorizationsSet>
+            <AuthzUseForPurpose>
+                <Purpose/>
+            </AuthzUseForPurpose>
+        </AuthorizationsSet>
+    </DataHandlingPreferences>
+    <ProvisionalActions>
+        <ProvisionalAction>
+            <AttributeValue>#DHP_allow_all</AttributeValue>
+            <AttributeValue>*</AttributeValue>
+        </ProvisionalAction>
+    </ProvisionalActions>
+</policy-set>
